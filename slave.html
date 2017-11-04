@@ -6,18 +6,25 @@
 
     <link rel="stylesheet" type="text/css" href="styles.css"/>
     <style type="text/css">
-        body {
-            margin: 0 ;
+        html,body
+        {
+            width: 100%; height: 100%; padding:0; margin:0;
+        }
+        .brrr
+        {
+            width: 100%; height: 100%; background: #FFF; position: relative;
+        }
+        img
+        {
+            max-height: 100%; max-width: 100%; height: auto; width: auto; display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; box-sizing: border-box; margin: auto;
         }
     </style>
 
 </head>
 <body>
 
-<div class="horizontal div1">
-    <div class="vertical">
-        <img id="letterform" src="a.gif" title="a.gif"/>
-    </div>
+<div class="brrr">
+        <img id="letterform" src="a.gif"/>
 </div>
 
 <!-- load Firebase library -->
@@ -59,7 +66,7 @@
 
         letterform = document.getElementById('letterform');
         letterform.src = character.toLowerCase() + '.gif';
-        letterform.title = character.toLowerCase() ;
+//        letterform.title = character.toLowerCase() ;
 
     }
 
