@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popsicle server</title>
+</head>
+<style type="text/css">
+    body {
+        font-family: Helvetica, sans-serif;
+        font-size: 1.5em;
+    }
+
+    input[type="text"] {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    #red, input[id^="red"] {
+        color: #d00;
+    }
+
+    #green, input[id^="green"] {
+        color: #0d0;
+    }
+
+    #blue, input[id^="blue"] {
+        color: #00d;
+    }
+</style>
+<body>
+<form method="get">
+    <h1 id="red">red</h1>
+    <div>
+        <label for="red1">monitor 1:</label> <input type="text" name="red1" id="red1" size="2" maxlength="1">
+        <label for="red2">monitor 2:</label> <input type="text" name="red1" id="red2" size="2" maxlength="1">
+        <label for="red3">monitor 3:</label> <input type="text" name="red1" id="red3" size="2" maxlength="1">
+        <label for="red4">monitor 4:</label> <input type="text" name="red1" id="red4" size="2" maxlength="1">
+    </div>
+
+    <h1 id="green">green</h1>
+    <div><label for="green1">monitor 1:</label> <input type="text" name="green1" id="green1" size="2" maxlength="1">
+        <label for="green2">monitor 2:</label> <input type="text" name="green2" id="green2" size="2" maxlength="1">
+        <label for="green3">monitor 3:</label> <input type="text" name="green3" id="green3" size="2" maxlength="1">
+        <label for="green4">monitor 4:</label> <input type="text" name="green4" id="green4" size="2" maxlength="1">
+    </div>
+    <h1 id="blue">blue</h1>
+    <div>
+        <label for="blue1">monitor 1:</label> <input type="text" name="blue1" id="blue1" size="2" maxlength="1">
+        <label for="blue2">monitor 2:</label> <input type="text" name="blue2" id="blue2" size="2" maxlength="1">
+        <label for="blue3">monitor 3:</label> <input type="text" name="blue3" id="blue3" size="2" maxlength="1">
+        <label for="blue4">monitor 4:</label> <input type="text" name="blue4" id="blue4" size="2" maxlength="1">
+    </div>
+    <p><input type="submit" value="update popsicles"></p>
+</form>
+<!--jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="application/javascript">
+    console.log('wassup!');
+
+
+</script>
+
+</body>
+</html>

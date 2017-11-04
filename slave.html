@@ -22,22 +22,35 @@
         #img_bg {
             z-index: 9;
         }
+
+        div.horizontal {
+            display: flex;
+            justify-content: center;
+        }
+
+        div.vertical {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
     </style>
 
 
     <!-- Commands go here. -->
 
     <script type="text/javascript">
+        var url_string = window.location.href ;
+        var url = new URL(url_string);
+        var color = url.searchParams.get("color");
+        var monitor = url.searchParams.get("monitor");
+        console.log("color:",color);
+        console.log("monitor:",monitor);
 
-        // CHANGE THE CLIENT ID BELOW
-        var client_id = '0' ; // Customize this per client. No duplicates expected!
+//        var fb_url = 'https://huemenorah.firebaseio.com/' ;
 
-        var fb_url = 'https://huemenorah.firebaseio.com/' ;
-        var image_folder = 'images/' ;
+        //var image_database = new Firebase(fb_url) ;
 
-        var image_database = new Firebase(fb_url) ;
-
-        image_database.child( client_id ).on("value", function ( client_setting ) {
+        //image_database.child( client_id ).on("value", function ( client_setting ) {
 /*
             console.log ( 'getting config for ***CLIENT ' + client_id + '***...' ) ;
 
@@ -51,13 +64,16 @@
             console.log("delay: " + delay);  //
 */
 
-        });
+        //});
     </script>
 </head>
 <body>
 
-<!-- add Fish's code here -->
-
+<div class="horizontal div1">
+    <div class="vertical">
+        <img id="letterform" src="a.gif" title="a.gif" />
+    </div>
+</div>
 
 <!-- load Firebase library -->
 
@@ -77,7 +93,7 @@
 
 <!-- load jQuery library -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
 
 </body>
 </html>
