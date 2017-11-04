@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,50 +6,24 @@
 
     <link rel="stylesheet" type="text/css" href="styles.css"/>
 
-    <!-- Commands go here. -->
-
-    <script type="text/javascript">
-        var url_string = window.location.href ;
-        var url = new URL(url_string);
-        var color = url.searchParams.get("color");
-        var monitor = url.searchParams.get("monitor");
-        console.log("color:",color);
-        console.log("monitor:",monitor);
-
-//        var fb_url = 'https://huemenorah.firebaseio.com/' ;
-
-        //var image_database = new Firebase(fb_url) ;
-        var popsicles = new Firebase(popsicle_url) ;
-
-        image_database.child( 'popsicles/'+color+'/'+monitor ).on("value", function ( character ) {
-            console.log (character.val()) ;
-/*
-            console.log ( 'getting config for ***CLIENT ' + client_id + '***...' ) ;
-
-            var image_url = client_setting.val().path ;
-            console.log("path: " + image_url);  //
-
-            var transition = client_setting.val().transition ;
-            console.log("transition: " + transition);  //
-
-            var delay = client_setting.val().delay ;
-            console.log("delay: " + delay);  //
-*/
-
-        });
-    </script>
 </head>
 <body>
 
 <div class="horizontal div1">
     <div class="vertical">
-        <img id="letterform" src="a.gif" title="a.gif" />
+        <img id="letterform" src="a.gif" title="a.gif"/>
     </div>
 </div>
 
 <!-- load Firebase library -->
 
-<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-database.js"></script>
+
+<!-- load jQuery library -->
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+
 <script>
     // Initialize Firebase
     var config = {
@@ -62,12 +34,35 @@
         storageBucket: "",
         messagingSenderId: "604298729851"
     };
-    firebase.initializeApp(config);
+    var popsicle_app = firebase.initializeApp(config);
+
+    <!-- Commands go here. -->
+
+    //    console.log("popsicle_app:",popsicle_app.name) ;
+    popsicle_db = firebase.database();
+
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var color = url.searchParams.get("color");
+    var monitor = url.searchParams.get("monitor");
+//    console.log("color:", color);
+//    console.log("monitor:", monitor);
+
+    var character = firebase.database().ref('popsicles/' + color + '/' + monitor);
+    character.on('value', function (snapshot) {
+//        console.log("character:", snapshot.val());
+        update_character(snapshot.val());
+    });
+
+    function update_character(character) {
+
+        letterform = document.getElementById('letterform');
+        letterform.src = character + '.gif';
+        letterform.title = character ;
+
+    }
+
 </script>
-
-<!-- load jQuery library -->
-
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
 
 </body>
 </html>
