@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>screen index</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+<script type="text/javascript">
+    function print_monitor_listing (color) {
+
+        monitor_count = 4 ;
+
+        for ( monitor = 1 ; monitor < monitor_count+1 ; monitor++ ) {
+            document.write ('<p>Monitor: <a href="slave.html?color=' + color + '&monitor=' + monitor + '">' + color + ' ' + monitor + '</a></p>') ;
+        }
+
+    }
+
+</script>
+</head>
+<body>
+<h1>red</h1>
+<script type="text/javascript">
+    print_monitor_listing('red') ;
+</script>
+<h1>green</h1>
+<script type="text/javascript">
+    print_monitor_listing('green') ;
+</script>
+<h1>blue</h1>
+<script type="text/javascript">
+    print_monitor_listing('blue') ;
+</script>
+
+
+</body>
+</html>
