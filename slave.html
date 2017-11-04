@@ -25,10 +25,6 @@
 <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-database.js"></script>
 
-<!-- load jQuery library -->
-
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-
 <script>
     // Initialize Firebase
     var config = {
@@ -62,8 +58,8 @@
     function update_character(character) {
 
         letterform = document.getElementById('letterform');
-        letterform.src = character + '.gif';
-        letterform.title = character ;
+        letterform.src = character.toLowerCase() + '.gif';
+        letterform.title = character.toLowerCase() ;
 
     }
 

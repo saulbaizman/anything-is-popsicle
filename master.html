@@ -4,37 +4,124 @@
     <meta charset="UTF-8">
     <title>Popsicle server</title>
     <link rel="stylesheet" type="text/css" href="styles.css"/>
+
 </head>
 <body>
-<form method="get">
-    <h1 id="red">red</h1>
-    <div>
-        <label for="red1">monitor 1:</label> <input type="text" name="red1" id="red1" size="2" maxlength="1">
-        <label for="red2">monitor 2:</label> <input type="text" name="red1" id="red2" size="2" maxlength="1">
-        <label for="red3">monitor 3:</label> <input type="text" name="red1" id="red3" size="2" maxlength="1">
-        <label for="red4">monitor 4:</label> <input type="text" name="red1" id="red4" size="2" maxlength="1">
-    </div>
+<form id="popsicle_master" method="get">
 
-    <h1 id="green">green</h1>
-    <div><label for="green1">monitor 1:</label> <input type="text" name="green1" id="green1" size="2" maxlength="1">
-        <label for="green2">monitor 2:</label> <input type="text" name="green2" id="green2" size="2" maxlength="1">
-        <label for="green3">monitor 3:</label> <input type="text" name="green3" id="green3" size="2" maxlength="1">
-        <label for="green4">monitor 4:</label> <input type="text" name="green4" id="green4" size="2" maxlength="1">
-    </div>
-    <h1 id="blue">blue</h1>
-    <div>
-        <label for="blue1">monitor 1:</label> <input type="text" name="blue1" id="blue1" size="2" maxlength="1">
-        <label for="blue2">monitor 2:</label> <input type="text" name="blue2" id="blue2" size="2" maxlength="1">
-        <label for="blue3">monitor 3:</label> <input type="text" name="blue3" id="blue3" size="2" maxlength="1">
-        <label for="blue4">monitor 4:</label> <input type="text" name="blue4" id="blue4" size="2" maxlength="1">
-    </div>
+    <script type="text/javascript">
+
+        print_monitor_update_fields('red') ;
+
+        print_monitor_update_fields('green') ;
+
+        print_monitor_update_fields('blue') ;
+
+        function print_monitor_update_fields(color) {
+
+            document.write('<h1 id="' + color + '">' + color + '</h1>') ;
+
+            document.write('<div>' ) ;
+            monitor_count = 4;
+
+            for (monitor = 1; monitor < monitor_count + 1; monitor++) {
+                document.write('<label for="' + color + monitor + '">monitor ' + monitor + ':</label> <input type="text" name="' + color + monitor + '" id="' + color + monitor + '" size="2" maxlength="1" value="">') ;
+            }
+            document.write('</div>' ) ;
+
+        }
+    </script>
     <p><input type="submit" value="update popsicles"></p>
 </form>
-<!--jquery-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="application/javascript">
-    console.log('wassup!');
 
+<!-- load Firebase library -->
+
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-database.js"></script>
+
+<script type="text/javascript">
+
+    console.log('initializing firebase db');
+
+    var config = {
+        apiKey: "AIzaSyCuVBF2WWt2tD53KO40S2dungEEx3I6yJQ",
+        authDomain: "anything-is-popsicle.firebaseapp.com",
+        databaseURL: "https://anything-is-popsicle.firebaseio.com",
+        projectId: "anything-is-popsicle",
+        storageBucket: "",
+        messagingSenderId: "604298729851"
+    };
+    var popsicle_app = firebase.initializeApp(config);
+
+    <!-- Commands go here. -->
+
+    //    console.log("popsicle_app:",popsicle_app.name) ;
+    popsicle_db = firebase.database();
+
+    var color1 = 'red' ;
+    var color2 = 'green' ;
+    var color3 = 'blue' ;
+
+    var characters = firebase.database().ref('popsicles/');
+    characters.once('value').then( function (snapshot) {
+
+        var characters_array = snapshot.val() ;
+//        console.log("character:", characters_array);
+
+//        console.log ( characters_array.red[1]) ;
+
+        monitor_count = 4;
+
+        for (monitor = 1; monitor < monitor_count + 1; monitor++) {
+            document.getElementById(color1+monitor).value = characters_array.red[monitor] ;
+        }
+
+        for (monitor = 1; monitor < monitor_count + 1; monitor++) {
+            document.getElementById(color2+monitor).value = characters_array.green[monitor] ;
+        }
+
+        for (monitor = 1; monitor < monitor_count + 1; monitor++) {
+            document.getElementById(color3+monitor).value = characters_array.blue[monitor] ;
+        }
+
+    });
+
+    var pop_master = document.getElementById('popsicle_master') ;
+
+    pop_master.addEventListener('submit',function (event) {
+        event.preventDefault() ;
+        console.log('submitted form') ;
+
+        var updates = {};
+
+        monitor_count = 4;
+
+        for (monitor = 1; monitor < monitor_count + 1; monitor++) {
+            var new_value = document.getElementById(color1+monitor).value;
+            if (new_value !='' && new_value != ' ' ) {
+//                console.log ('new value for ' + color1 + monitor + ':',new_value);
+                updates['/popsicles/' + color1 + '/' + monitor] = new_value;
+            }
+        }
+
+        for (monitor = 1; monitor < monitor_count + 1; monitor++) {
+            var new_value = document.getElementById(color2+monitor).value;
+            if (new_value !='' && new_value != ' ' ) {
+//                console.log ('new value for ' + color2 + monitor + ':',new_value);
+                updates['/popsicles/' + color2 + '/' + monitor] = new_value;
+            }
+        }
+        for (monitor = 1; monitor < monitor_count + 1; monitor++) {
+            var new_value = document.getElementById(color3+monitor).value;
+            if (new_value !='' && new_value != ' ' ) {
+//                console.log ('new value for ' + color3 + monitor + ':',new_value);
+                updates['/popsicles/' + color3 + '/' + monitor] = new_value;
+            }
+        }
+
+        firebase.database().ref().update(updates);
+
+    }) ;
 
 </script>
 
