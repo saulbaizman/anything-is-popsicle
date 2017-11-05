@@ -49,6 +49,8 @@
     //    console.log("popsicle_app:",popsicle_app.name) ;
     popsicle_db = firebase.database();
 
+    var image_folder = 'img' ;
+
     var url_string = window.location.href;
     var url = new URL(url_string);
     var color = url.searchParams.get("color");
@@ -65,7 +67,7 @@
     function update_character(character) {
 
         letterform = document.getElementById('letterform');
-        letterform.src = character.toUpperCase() + '.gif';
+        letterform.src = image_folder+'/'+character.toUpperCase() + '.gif';
 //        letterform.title = character.toLowerCase() ;
 
     }
